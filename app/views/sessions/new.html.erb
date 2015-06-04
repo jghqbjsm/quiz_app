@@ -1,0 +1,12 @@
+<h1>Sessions#new</h1>
+<p>This is in session</p>
+<%= form_for @unit, url:{action:"list"} do |f| %>
+<ul>
+    <li>
+        <%= f.check_box_tag :unitID%>
+        <%= f.text_field :unitTitle %>
+    </li>
+    
+</ul>
+<%= f.submit "Submit" %>
+<% end %>
