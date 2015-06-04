@@ -1,7 +1,21 @@
 Rails.application.routes.draw do
+  get 'unit_list/unit_list'
 
+  get 'sessions/new'
 
-  get 'user_login/login'
+  resources :user_login
+
+  resources :unit_list, :collection =>{ :complete => :put}
+
+  get 'unit_list' =>'unit_list/unit_list'
+
+  get 'login'  =>'user_login/login'
+  
+  get    'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
+
+  root 'user_login#login'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
