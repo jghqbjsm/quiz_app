@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603065904) do
+ActiveRecord::Schema.define(version: 0) do
 
   create_table "course", primary_key: "ID", force: :cascade do |t|
     t.string "Name", limit: 45, null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20150603065904) do
     t.integer "QuestionID", limit: 4
   end
 
-  add_index "optionanswer", ["QuestionID"], name: "QuestionID_idx", using: :btree
+  add_index "optionanswer", ["QuestionID"], name: "QuestionID_idx"
 
   create_table "question", primary_key: "QuestionID", force: :cascade do |t|
     t.string  "Title",          limit: 45, null: false
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20150603065904) do
     t.integer "TypeQuestionID", limit: 4
   end
 
-  add_index "question", ["TypeQuestionID"], name: "TypeQuestionPK_idx", using: :btree
+  add_index "question", ["TypeQuestionID"], name: "TypeQuestionPK_idx"
 
   create_table "questionnaire", primary_key: "ID", force: :cascade do |t|
     t.string   "Name",    limit: 45, null: false
@@ -47,16 +47,16 @@ ActiveRecord::Schema.define(version: 20150603065904) do
     t.integer  "UnitID",  limit: 4
   end
 
-  add_index "questionnaire", ["UnitID"], name: "UnitPK_idx", using: :btree
+  add_index "questionnaire", ["UnitID"], name: "UnitPK_idx"
 
   create_table "questionnairequestion", id: false, force: :cascade do |t|
     t.integer "QuestionID",      limit: 4, null: false
     t.integer "QuestionnaireID", limit: 4, null: false
   end
 
-  add_index "questionnairequestion", ["QuestionID"], name: "IDQuestion", using: :btree
-  add_index "questionnairequestion", ["QuestionnaireID"], name: "IDQuestionnaire_idx", using: :btree
-  add_index "questionnairequestion", ["QuestionnaireID"], name: "QuestionnairePK_idx", using: :btree
+  add_index "questionnairequestion", ["QuestionID"], name: "IDQuestion"
+  add_index "questionnairequestion", ["QuestionnaireID"], name: "IDQuestionnaire_idx"
+  add_index "questionnairequestion", ["QuestionnaireID"], name: "QuestionnairePK_idx"
 
   create_table "student", primary_key: "StudentID", force: :cascade do |t|
     t.integer "StudentNumber", limit: 4,  null: false
@@ -67,7 +67,8 @@ ActiveRecord::Schema.define(version: 20150603065904) do
     t.integer "CourseID",      limit: 4,  null: false
   end
 
-  add_index "student", ["CourseID"], name: "CourseID_idx", using: :btree
+  add_index "student", ["CourseID"], name: "CourseID_idx"
+  add_index "student", ["Email"], name: "index_student_on_email", unique: true
 
   create_table "typequestion", primary_key: "ID", force: :cascade do |t|
     t.string "Type", limit: 45, null: false
@@ -78,28 +79,21 @@ ActiveRecord::Schema.define(version: 20150603065904) do
     t.integer "CourseID", limit: 4,  null: false
   end
 
-  add_index "unit", ["CourseID"], name: "CourseID", using: :btree
+  add_index "unit", ["CourseID"], name: "CourseID"
 
-  create_table "units", force: :cascade do |t|
-    t.integer  "unitID",     limit: 4
-    t.string   "unitTitle",  limit: 255
-    t.string   "studentID",  limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  create_table "unitlecturer", id: false, force: :cascade do |t|
+    t.integer "UnitID",     limit: 4, default: 0, null: false
+    t.integer "LecturerID", limit: 4, default: 0, null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.integer  "studentID",  limit: 4
-    t.string   "password",   limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  add_index "unitlecturer", ["LecturerID"], name: "lectID"
+
+  create_table "useranswer", id: false, force: :cascade do |t|
+    t.integer "StudentID",  limit: 4,   default: 0, null: false
+    t.integer "QuestionID", limit: 4,   default: 0, null: false
+    t.string  "Answer",     limit: 128,             null: false
   end
 
-  add_foreign_key "optionanswer", "question", column: "QuestionID", primary_key: "QuestionID", name: "QuestionPK"
-  add_foreign_key "question", "typequestion", column: "TypeQuestionID", primary_key: "ID", name: "TypeQuestionPK"
-  add_foreign_key "questionnaire", "unit", column: "UnitID", primary_key: "ID", name: "UnitPK"
-  add_foreign_key "questionnairequestion", "question", column: "QuestionID", primary_key: "QuestionID", name: "IDQuestion"
-  add_foreign_key "questionnairequestion", "questionnaire", column: "QuestionnaireID", primary_key: "ID", name: "IDQuestionnaire"
-  add_foreign_key "student", "course", column: "CourseID", primary_key: "ID", name: "IdCourse"
-  add_foreign_key "unit", "course", column: "CourseID", primary_key: "ID", name: "CourseID"
+  add_index "useranswer", ["QuestionID"], name: "QuesID"
+
 end

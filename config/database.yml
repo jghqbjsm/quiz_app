@@ -19,16 +19,19 @@ default: &default
 #   username: root
 #   password:
 #   socket: /tmp/mysql.sock
+#development:
+#  adapter: mysql
+#  encoding: utf8
+#  database: Gus_Quiz_App
+#  username: Quiz_App_Gus
+#  password: admin
+#  host: 223.27.22.124
+#  port: 3306
+#  pool: 5
+#  timeout: 5000
 development:
-  adapter: mysql
-  encoding: utf8
-  database: Gus_Quiz_App
-  username: Quiz_App_Gus
-  password: admin
-  host: 223.27.22.124
-  port: 3306
-  pool: 5
-  timeout: 5000
+  <<: *default
+  database: db/development.sqlite3  
   
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
