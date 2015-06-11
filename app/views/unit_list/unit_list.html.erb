@@ -3,9 +3,8 @@
 <ul>
     <li>
         <%= f.check_box_tag :unitID%>
-        <%= f.text_field :unitTitle %>
+        <%= link_to :unitTitle, unit_list_questionnaire_path(@unitID) %>
     </li>
     
 </ul>
-<%= f.submit "Create" %>
 <% end %>

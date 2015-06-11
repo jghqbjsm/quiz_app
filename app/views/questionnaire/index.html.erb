@@ -1,0 +1,14 @@
+<h1>Questionnaire#index</h1>
+<%= will_paginate %>
+
+<ul class="questionnaires">
+  <% @questionnaires.each do |questionnaire| %>
+    <li>
+      <%= gravatar_for questionnaire, size: 20 %>
+      <%= questionnaire.check_box_tag :ID%>
+      <%= link_to questionnaire.name, questionnaire %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate %>

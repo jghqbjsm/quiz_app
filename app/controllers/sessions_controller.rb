@@ -4,23 +4,24 @@ class SessionsController < ApplicationController
   end
 
   def create
-     user = User.find_by(studentID: params[:session][:studentID].downcase)
+    student = Student.find_by(params[:session][:StudentNumber],params[:session][:Password])
     
-    #     if user && user.authenticate(params[:session][:password])
-      
-    #  # Log the user in and redirect to the user's show page.
-    #  log_in user
-    #s  redirect_to user
-    # else
-    #  # Create an error message.
-    #  flash[:danger] = 'Invalid email/password combination' # Not quite right!
+    if student.nil?
+      flash.now[:error]="Invalid user login"
+      render :new
+    else
+      log_in(student)
+      redirect_to student
+    #  # Log the student in and redirect to the student's show page.
+    #  log_in student
+    #s  redirect_to student
 
-    #  render 'new' 
-    
+    end
   end
 
   def destroy
+    log_out
+    redirect_to login_path
   end
-  
 end
 

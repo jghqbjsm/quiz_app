@@ -1,12 +1,19 @@
 <h1>Sessions#new</h1>
 <p>This is in session</p>
-<%= form_for @unit, url:{action:"list"} do |f| %>
-<ul>
-    <li>
-        <%= f.check_box_tag :unitID%>
-        <%= f.text_field :unitTitle %>
-    </li>
-    
-</ul>
-<%= f.submit "Submit" %>
+<p>Login</p><br />
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+<%= simple_form_for(:session, url: login_path) do |f| %>
+  
+  <%= f.label :StudentNumber%>:
+  <%= f.text_field :StudentNumber %><br />
+
+  <%= f.label :Password %>:
+  <%= f.text_field :Password %><br />
+
+  <%= f.submit  "Log In" ,class: "btn btn-lg btn-primary"%>
 <% end %>
+  </div>
+</div>
+

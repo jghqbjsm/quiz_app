@@ -13,11 +13,11 @@
 
 ActiveRecord::Schema.define(version: 20150603065904) do
 
-  create_table "course", primary_key: "ID" do |t|
+  create_table "course", primary_key: "ID", force: :cascade do |t|
     t.string "Name", limit: 45, null: false
   end
 
-  create_table "lecturer", primary_key: "ID" do |t|
+  create_table "lecturer", primary_key: "ID", force: :cascade do |t|
     t.integer "LecturerNumber", limit: 4,  null: false
     t.string  "FirstName",      limit: 45, null: false
     t.string  "LastName",       limit: 45, null: false
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20150603065904) do
     t.integer "QuestionnaireID", limit: 4, null: false
   end
 
+  add_index "questionnairequestion", ["QuestionID"], name: "IDQuestion", using: :btree
   add_index "questionnairequestion", ["QuestionnaireID"], name: "IDQuestionnaire_idx", using: :btree
   add_index "questionnairequestion", ["QuestionnaireID"], name: "QuestionnairePK_idx", using: :btree
 
@@ -76,6 +77,8 @@ ActiveRecord::Schema.define(version: 20150603065904) do
     t.string  "Name",     limit: 45, null: false
     t.integer "CourseID", limit: 4,  null: false
   end
+
+  add_index "unit", ["CourseID"], name: "CourseID", using: :btree
 
   create_table "units", force: :cascade do |t|
     t.integer  "unitID",     limit: 4
