@@ -1,19 +1,18 @@
-<h1>Sessions#new</h1>
-<p>This is in session</p>
-<p>Login</p><br />
-
+<h1>Log In </h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-<%= simple_form_for(:session, url: login_path) do |f| %>
+  <%= form_for(:session, url: login_path) do |f| %>
   
-  <%= f.label :StudentNumber%>:
-  <%= f.text_field :StudentNumber %><br />
+  <%= f.label       :Email%>:
+  <%= f.text_field :Email, class: 'form-control' %><br />
 
   <%= f.label :Password %>:
-  <%= f.text_field :Password %><br />
+  <%= f.text_field :Password, class: 'form-control' %><br />
 
   <%= f.submit  "Log In" ,class: "btn btn-lg btn-primary"%>
-<% end %>
+  <% end %>
   </div>
 </div>
+  
+ 
 

@@ -5,9 +5,11 @@ class StudentsController < ApplicationController
   end
 
   def create
-     @student = Student.new(user_params)
+     @student = Student.new(student_params)
+     
     if @student.save 
-      redirect_to @students, notice:'Student was successfully created.'
+      log_in @student
+      redirect_to @student, notice:'Student was successfully created.'
     else
       render action: 'new'
     end
@@ -15,8 +17,9 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find(params[:id])
+    
   end
-  def user_params
+  def student_params
     params.require(:student).permit(:StudentNumber, :FirstName, :LastName, :Email, :Password,:CourseID)
   end
 end
